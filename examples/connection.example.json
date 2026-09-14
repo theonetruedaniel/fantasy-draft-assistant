@@ -1,0 +1,7 @@
+{
+  "extensionId": "REPLACE_WITH_CHROME_EXTENSION_ID",
+  "provider": "codex",
+  "model": "gpt-5.3-codex-spark",
+  "effort": "low",
+  "token": "GENERATE_LOCALLY_DO_NOT_COMMIT"
+}

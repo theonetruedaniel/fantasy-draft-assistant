@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Draft Companion",
+  "version": "0.1.5",
+  "description": "Read-only top-five fantasy football advice for Yahoo and ESPN snake drafts.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "storage",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8765/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Draft Companion"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://football.fantasysports.yahoo.com/draftclient/*",
+        "https://fantasy.espn.com/football/draft*"
+      ],
+      "js": [
+        "content.bundle.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'self' http://127.0.0.1:8765"
+  }
+}

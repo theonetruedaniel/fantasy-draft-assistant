@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Draft Companion</title><link rel="stylesheet" href="panel.css"></head>
+<body><header><h1>Draft Companion</h1><p>Read-only advisor</p></header>
+<main>
+  <label for="draft">Current draft</label><select id="draft"><option value="">Waiting for a draft room</option></select>
+  <p id="connection" role="status">Open a Yahoo or ESPN football draft, then open this panel.</p>
+  <p id="mode">Local engine Â· AI disconnected</p>
+  <section><h2>Your next five</h2><p id="source-status">Site fallback â€” research not loaded</p><p id="turn">Waiting for draft state</p><p id="profile-summary"></p>
+    <div id="warning" role="status"></div><ol id="choices"></ol><p id="pair"></p>
+  </section>
+  <section><h2>Team needs</h2><p id="needs">Own roster not yet read.</p><p id="priorities"></p></section>
+  <details id="settings"><summary>Draft settings</summary>
+    <p>Generic presets are assumptions. Confirm the current room's rules. Settings apply to this draft only.</p>
+    <label>Preset<select id="preset"><option value="10-team">10 teams Â· slot 10 Â· full PPR</option><option value="8-team">8 teams Â· slot 5 Â· full PPR</option></select></label><button id="use-preset" type="button">Use preset in form</button>
+    <form id="profile-form"><div class="fields"><label>Teams<input id="teams" type="number" min="2" max="32" required></label><label>My draft slot<input id="slot" type="number" min="1" max="32" required></label><label>Bench<input id="bench" type="number" min="0" max="30" required></label></div>
+      <label>My team ID (optional override)<input id="own-team" placeholder="Use the site's own-team identity"></label>
+      <label>Starting slots, comma separated<input id="slots" placeholder="QB,RB,RB,WR,WR,TE,RB/WR/TE,K,DST" required></label>
+      <label>Scoring coefficients (JSON)<textarea id="scoring" rows="7" spellcheck="false"></textarea></label>
+      <label>Unsupported rules or bonuses (one per line)<textarea id="unsupported" rows="2" placeholder="Leave blank only if all applicable rules are represented"></textarea></label>
+      <label class="check"><input id="confirmed" type="checkbox"> I confirmed these rules for this draft</label><button type="submit">Save draft settings</button>
+    </form><p id="settings-result" role="status"></p>
+  </details>
+  <details><summary>Import research</summary><p>Import CSV or JSON with rankings, projections and research notes. A personal local copy may preload a validated research profile. Research stays on this computer unless you enable AI refinement.</p>
+    <p id="research-loaded" role="status">Checking saved research…</p><p>The file picker is for your next import. “No file chosen” does not clear saved research.</p>
+    <label>Research file<input id="research-file" type="file" accept=".csv,.json,text/csv,application/json"></label>
+    <label>Source label (if absent in file)<input id="research-source"></label><label>Snapshot date (if absent in file)<input id="research-date" type="date"></label>
+    <button id="preview-import">Preview import</button><button id="apply-import" disabled>Apply validated import</button><button id="clear-import" class="secondary">Clear imported research</button><p id="import-result" role="status"></p>
+  </details>
+  <details><summary>AI connection</summary><p>Optional: start the supplied local connection. Codex uses managed ChatGPT sign-in; API uses separate API credentials. The shortlist, research evidence, selected guide excerpts, roster and settings are sent when enabled. Local advice keeps working on errors.</p>
+    <label>Connection<select id="ai-provider"><option value="codex">Local Codex · ChatGPT sign-in</option><option value="api">OpenAI API</option></select></label>
+    <label>Explicit model<input id="ai-model" placeholder="gpt-5.3-codex-spark"></label>
+    <label>Effort (Codex: low or medium)<select id="ai-effort"><option>low</option><option value="">API default</option><option>medium</option><option>high</option></select></label>
+    <label>Local relay token (not your provider API key)<input id="ai-token" type="password" autocomplete="off"></label>
+    <label>Private connection file<input id="ai-config-file" type="file" accept=".json,application/json"></label><button id="import-ai-config" class="secondary">Import connection and enable</button><p>The private file stays on this computer. It fills no password field and is never included in shared packages.</p>
+    <button id="enable-ai">Enable background AI</button><button id="disable-ai" class="secondary">Use research only</button><p id="ai-session-state" role="status"></p><p id="ai-result" role="status"></p>
+  </details>
+  <details><summary>Diagnostics</summary><p id="diagnostics">No draft read yet.</p><p>Page-read freshness is not independent proof of the site's server connection. Opponent needs and next-turn availability are estimates. Nothing here selects or queues a player.</p></details>
+</main><footer>No picks or queue changes.</footer><script type="module" src="panel.js"></script></body></html>

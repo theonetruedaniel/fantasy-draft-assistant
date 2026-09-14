@@ -1,0 +1,16 @@
+{
+  "source": "Synthetic example only",
+  "sourceDate": "2026-09-07",
+  "season": 2026,
+  "players": [
+    {
+      "name": "Example Player",
+      "position": "RB",
+      "team": "BUF",
+      "rank": 100,
+      "tier": 8,
+      "byeWeek": 7,
+      "rationale": "Synthetic example demonstrating the import format."
+    }
+  ]
+}
