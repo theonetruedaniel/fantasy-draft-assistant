@@ -53,3 +53,7 @@ Users supply their own research and statistics. Missing data remains unknown. Hi
 Do not publish `work/`, `outputs/`, `private/`, credentials, captured league pages or user research. The optional `--local-research` build switch copies a user-prepared profile into the local installed folder only. Its seed loads once into extension local storage when there is no existing research; it preserves custom settings, existing imports and a deliberate clear. Public packaging must exclude that seed.
 
 Version 0.1.2 includes the Yahoo overall-pick and own-turn corrections, explicitly numbered history, ESPN row-action IDs and safe promotion of temporary player identities. Older reader session caches are not carried into the new reader versions. Missing history remains visibly incomplete; genuine conflicting numbered history still suspends advice until reconciled by a complete history read. Completed drafts have a terminal screen and retain previously observed slot/settings.
+
+## License
+
+Original software and accompanying documentation in this repository are licensed under the [MIT License](LICENSE), copyright (c) 2026 Daniel Abrams. Third-party dependencies and any third-party content retain their respective licenses and rights.
