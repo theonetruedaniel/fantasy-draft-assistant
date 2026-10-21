@@ -40,20 +40,20 @@ function updateEntry(tabId,snapshot) {
   const state=reconcile(previous?.state,{...snapshot,tabId},profile,importRevision);
   const advice=recommend(state,research,profile,Date.now());
   const unchanged=previous?.state.contextKey===state.contextKey;
-  entries[tabId]={state,advice,profile,computeMs:performance.now()-started,ai:unchanged?previous.ai:{status:'disconnected',message:'Local engine Â· AI disconnected'},refinedAdvice:unchanged?previous.refinedAdvice:null};
+  entries[tabId]={state,advice,profile,computeMs:performance.now()-started,ai:unchanged?previous.ai:{status:'disconnected',message:'Local engine · AI disconnected'},refinedAdvice:unchanged?previous.refinedAdvice:null};
   if(!unchanged)pendingAi.get(tabId)?.abort();
   if(aiConfig.enabled&&advice.choices.length&&(!unchanged||!previous?.ai?.requested))startAi(tabId);
   return entries[tabId];
 }
 function startAi(tabId) {
   const entry=entries[tabId],controller=new AbortController(),contextKey=entry.state.contextKey;
-  pendingAi.set(tabId,controller);entry.ai={status:'pending',requested:true,message:`Local engine Â· ${aiConfig.model} refining (24s deadline)`};
+  pendingAi.set(tabId,controller);entry.ai={status:'pending',requested:true,message:`Local engine · ${aiConfig.model} refining (24s deadline)`};
   const context={contextKey,choices:boundedAiChoices(entry.advice.choices),research:researchForAi(researchContext,entry.advice.choices),teamNeeds:entry.advice.teamNeeds,profile:entry.profile,
     roster:(entry.state.rosters[entry.state.ownTeamId]||[]).map(k=>entry.state.players.find(p=>p.key===k)).filter(Boolean),warnings:entry.advice.warnings};
   waitForStableContext(controller.signal).then(()=>requestRefinement(aiConfig.provider==='codex'?compactCodexContext(context):context,aiConfig,controller.signal)).then(raw=>{
     const latest=entries[tabId];if(latest?.state.contextKey!==contextKey||pendingAi.get(tabId)!==controller)return;
     const refined=validateRefinement(raw,latest.state,entry.advice,Date.now());
-    latest.refinedAdvice=refined;latest.ai={requested:true,status:refined?'connected':'invalid',message:refined?`AI refinement Â· ${aiConfig.model}`:'Invalid or stale AI response Â· local advice retained'};publish();
+    latest.refinedAdvice=refined;latest.ai={requested:true,status:refined?'connected':'invalid',message:refined?`AI refinement · ${aiConfig.model}`:'Invalid or stale AI response · local advice retained'};publish();
   }).catch(error=>{
     const latest=entries[tabId];if(latest?.state.contextKey!==contextKey||pendingAi.get(tabId)!==controller)return;
     latest.ai={requested:true,status:'error',message:error.message};publish();
@@ -94,7 +94,7 @@ chrome.runtime.onMessage.addListener((message,sender,respond)=>{
       pendingAi.clear();aiConfig=next;
       await chrome.storage.session.set({aiConfig});
       await chrome.storage.local.set({aiPreferences:{provider:aiConfig.provider||'codex',model:aiConfig.model||'',effort:aiConfig.effort??'low'}});
-      for(const entry of Object.values(entries)){entry.ai={status:'disconnected',message:'Local engine Â· AI disconnected'};entry.refinedAdvice=null;}
+      for(const entry of Object.values(entries)){entry.ai={status:'disconnected',message:'Local engine · AI disconnected'};entry.refinedAdvice=null;}
       refreshAll();await publish();return {ok:true};
     }
     if(message.type==='SAVE_PROFILE') {

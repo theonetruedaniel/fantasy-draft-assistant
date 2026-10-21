@@ -22,23 +22,23 @@ function render() {
   const entries=Object.entries(data.entries).sort((a,b)=>b[1].state.readAt-a[1].state.readAt);
   if(!entries.some(([id])=>id===selected))selected=entries[0]?.[0]||'';
   const old=$('draft').value;$('draft').replaceChildren();
-  for(const [id,e] of entries) {const option=document.createElement('option');option.value=id;option.textContent=`${e.state.site.toUpperCase()} Â· ${e.state.draftId}`;$('draft').append(option);}
+  for(const [id,e] of entries) {const option=document.createElement('option');option.value=id;option.textContent=`${e.state.site.toUpperCase()} · ${e.state.draftId}`;$('draft').append(option);}
   if(!entries.length){const option=document.createElement('option');option.textContent='Waiting for a draft room';$('draft').append(option);}
   $('draft').value=selected;
-  const entry=data.entries[selected];if(!entry){$('source-status').textContent=data.researchCount?`${data.researchCount} research entries loaded Â· ${data.researchSummary?.date||'see import source'}`:'Site fallback â€” research not loaded';return;}
+  const entry=data.entries[selected];if(!entry){$('source-status').textContent=data.researchCount?`${data.researchCount} research entries loaded · ${data.researchSummary?.date||'see import source'}`:'Site fallback — research not loaded';return;}
   const {state,profile}=entry,live=freshness(state,Date.now());
   const advice=entry.refinedAdvice&&Date.now()-entry.refinedAdvice.computedAt<25000?entry.refinedAdvice:entry.advice;
-  $('connection').textContent=state.status==='complete'?'Draft complete':live.usable?`${state.site.toUpperCase()} Â· page read ${((Date.now()-state.readAt)/1000).toFixed(1)}s ago`:`Paused Â· ${live.reason}`;
-  $('mode').textContent=entry.ai?.message||'Local engine Â· AI disconnected';
-  $('turn').textContent=state.status==='complete'?'Draft complete':advice.picksUntilTurn===0?'Your turn':advice.picksUntilTurn!=null?`${advice.picksUntilTurn} picks until your turn Â· overall ${advice.nextPicks?.[0]}`:'Turn unknown';
-  $('profile-summary').textContent=`${profile.teams} teams Â· slot ${profile.slot} Â· ${profile.pointsPer.receptions??'?'} reception points Â· ${profile.confirmed?'confirmed':'assumed'} settings`;
-  $('source-status').textContent=state.status==='complete'?`${data.researchCount||0} research entries loaded`:advice.sourceStatus||'Site fallback â€” research not loaded';
+  $('connection').textContent=state.status==='complete'?'Draft complete':live.usable?`${state.site.toUpperCase()} · page read ${((Date.now()-state.readAt)/1000).toFixed(1)}s ago`:`Paused · ${live.reason}`;
+  $('mode').textContent=entry.ai?.message||'Local engine · AI disconnected';
+  $('turn').textContent=state.status==='complete'?'Draft complete':advice.picksUntilTurn===0?'Your turn':advice.picksUntilTurn!=null?`${advice.picksUntilTurn} picks until your turn · overall ${advice.nextPicks?.[0]}`:'Turn unknown';
+  $('profile-summary').textContent=`${profile.teams} teams · slot ${profile.slot} · ${profile.pointsPer.receptions??'?'} reception points · ${profile.confirmed?'confirmed':'assumed'} settings`;
+  $('source-status').textContent=state.status==='complete'?`${data.researchCount||0} research entries loaded`:advice.sourceStatus||'Site fallback — research not loaded';
   $('warning').textContent=state.status==='complete'?'':[...new Set([...(live.usable?[]:[live.reason]),...(advice.warnings||[])])].join('\n');
   $('choices').replaceChildren();
   const choices=live.usable?advice.choices:[];
   for(const choice of choices) {const li=document.createElement('li'),body=document.createElement('div'),name=document.createElement('strong'),why=document.createElement('p'),source=document.createElement('small');
     const card=cardSummary(choice,advice.teamNeeds);
-    name.textContent=`${choice.name} Â· ${choice.positions.join('/')} ${choice.team||''}`;why.textContent=card.explanation;source.textContent=`${choice.basis} Â· ${choice.nextTurnRisk}`;body.append(name);
+    name.textContent=`${choice.name} · ${choice.positions.join('/')} ${choice.team||''}`;why.textContent=card.explanation;source.textContent=`${choice.basis} · ${choice.nextTurnRisk}`;body.append(name);
     if(card.actualStats){const stats=document.createElement('p');stats.className='actual-stats';stats.textContent=card.actualStats;body.append(stats);}
     body.append(why,source);
     if(choice.evidence||choice.notes?.length||choice.projectionPoints!=null){const details=document.createElement('details'),summary=document.createElement('summary'),evidence=document.createElement('p');summary.textContent='Research and numbers';
