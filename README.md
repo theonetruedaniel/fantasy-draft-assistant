@@ -1,5 +1,7 @@
 # Draft Companion
 
+[![Extension checks](https://github.com/theonetruedaniel/fantasy-draft-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/theonetruedaniel/fantasy-draft-assistant/actions/workflows/ci.yml)
+
 A Chrome MV3 side-panel advisor for Yahoo and ESPN fantasy football snake drafts. It reads the visible draft page, gives up to five available recommendations and explains roster needs. It never submits picks or changes a queue.
 
 ## Public source edition
@@ -47,6 +49,8 @@ AI may reorder only the current legal shortlist. **Generated AI prose is not dis
 Users supply their own research and statistics. Missing data remains unknown. Historical performance is distinct from a forecast; bye coverage is a roster consideration rather than a predicted score.
 
 ## Evidence and distribution
+
+GitHub Actions runs the public test suite and default extension build on Node.js 22 and 24. It does not enable the optional AI relay or include local research. Private-input tests remain explicit skips, not verified live coverage.
 
 `npm test` covers state transitions, scoring, import identity/provenance, roster legality, early QB context, late upside and AI failure handling. Private captures and original research are intentionally not in the public source archive; their tests skip when absent.
 

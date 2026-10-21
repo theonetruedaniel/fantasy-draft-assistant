@@ -4,14 +4,14 @@
 <main>
   <label for="draft">Current draft</label><select id="draft"><option value="">Waiting for a draft room</option></select>
   <p id="connection" role="status">Open a Yahoo or ESPN football draft, then open this panel.</p>
-  <p id="mode">Local engine Â· AI disconnected</p>
-  <section><h2>Your next five</h2><p id="source-status">Site fallback â€” research not loaded</p><p id="turn">Waiting for draft state</p><p id="profile-summary"></p>
+  <p id="mode">Local engine · AI disconnected</p>
+  <section><h2>Your next five</h2><p id="source-status">Site fallback — research not loaded</p><p id="turn">Waiting for draft state</p><p id="profile-summary"></p>
     <div id="warning" role="status"></div><ol id="choices"></ol><p id="pair"></p>
   </section>
   <section><h2>Team needs</h2><p id="needs">Own roster not yet read.</p><p id="priorities"></p></section>
   <details id="settings"><summary>Draft settings</summary>
     <p>Generic presets are assumptions. Confirm the current room's rules. Settings apply to this draft only.</p>
-    <label>Preset<select id="preset"><option value="10-team">10 teams Â· slot 10 Â· full PPR</option><option value="8-team">8 teams Â· slot 5 Â· full PPR</option></select></label><button id="use-preset" type="button">Use preset in form</button>
+    <label>Preset<select id="preset"><option value="10-team">10 teams · slot 10 · full PPR</option><option value="8-team">8 teams · slot 5 · full PPR</option></select></label><button id="use-preset" type="button">Use preset in form</button>
     <form id="profile-form"><div class="fields"><label>Teams<input id="teams" type="number" min="2" max="32" required></label><label>My draft slot<input id="slot" type="number" min="1" max="32" required></label><label>Bench<input id="bench" type="number" min="0" max="30" required></label></div>
       <label>My team ID (optional override)<input id="own-team" placeholder="Use the site's own-team identity"></label>
       <label>Starting slots, comma separated<input id="slots" placeholder="QB,RB,RB,WR,WR,TE,RB/WR/TE,K,DST" required></label>

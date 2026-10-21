@@ -7,7 +7,7 @@ export function cardSummary(choice,needs) {
   try{year=new URL(actual?.source_url).searchParams.get('year');}catch{}
   if(actual&&/^\d{4}$/.test(year||'')){
     const values=[actual.receptions,actual.yards,actual.td].map(number);
-    if(values.every(v=>v!==null))actualStats=`${year} actual receiving: ${values[0].toLocaleString('en-US')} catches Â· ${values[1].toLocaleString('en-US')} yards Â· ${values[2].toLocaleString('en-US')} TDs`;
+    if(values.every(v=>v!==null))actualStats=`${year} actual receiving: ${values[0].toLocaleString('en-US')} catches · ${values[1].toLocaleString('en-US')} yards · ${values[2].toLocaleString('en-US')} TDs`;
   }
   const history=choice.actualStats;
   if(history?.seasonType==='REG'&&Number.isInteger(history.season)&&history.sourceUrl&&history.stats){
